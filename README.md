@@ -5,7 +5,7 @@ Team project for building the Mancala board game in Java using Swing
 
 
 
- Development Schedule
+                    Development Schedule
  
  Week 1 | Project setup and basic structure |
  
@@ -20,7 +20,7 @@ Team project for building the Mancala board game in Java using Swing
 
  
 
-Structure
+                   Structure
 
 src/model        - game logic classes  
 
