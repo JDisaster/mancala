@@ -1,12 +1,13 @@
 import javax.swing.*;
 import view.BoardView;
+import controller.BoardController;
+import model.BoardModel;
 
 public class MancalaMain {
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Mancala Game");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 400);
-        frame.add(new BoardView());
-        frame.setVisible(true);
+        BoardModel model = new BoardModel();
+        BoardView view = new BoardView();
+        BoardController controller = new BoardController(model, view);
+        controller.start();
     }
 }
