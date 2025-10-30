@@ -8,5 +8,4 @@ public class BoardView extends JPanel {
         super.paintComponent(g);
         g.drawString("Mancala Game Board", 50, 50);
     }
-    //test
 }
