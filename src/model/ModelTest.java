@@ -5,7 +5,7 @@ package model;
  */
 public class ModelTest {
     public static void main(String[] args) {
-        MancalaModel model = new MancalaModel();
+        MancalaModel model = new MancalaModel("p1", "p2");
 
         // board with 3 stones per pit
         model.initializeBoard(3);
