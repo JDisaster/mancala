@@ -1,4 +1,3 @@
-import javax.swing.*;
 import view.BoardView;
 import controller.BoardController;
 import model.BoardModel;
