@@ -13,8 +13,12 @@ public class Pit {
     }
 
     /** Returns the current number of stones in this pit. */
-    public int getStones() { return stones; }
+    public int getStones() {
+        return stones;
+    }
 
     /** Sets the number of stones in this pit. */
-    public void setStones(int stones) { this.stones = stones; }
+    public void setStones(int stones) {
+        this.stones = stones;
+    }
 }

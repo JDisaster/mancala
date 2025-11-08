@@ -8,8 +8,8 @@ public class Player {
     private boolean isPlayerA;
     private int undoCount;
 
-    // Constructor for players 
-    public Player(String name, boolean isPlayerA){
+    // Constructor for players
+    public Player(String name, boolean isPlayerA) {
         this.name = name;
         this.isPlayerA = isPlayerA;
         this.undoCount = 0;
@@ -18,31 +18,35 @@ public class Player {
     /**
      * Method used to get player name
      */
-    public String getName(){
+    public String getName() {
         return name;
     }
+
     /**
      * Method used to check which player turn it is
      */
-    public boolean isPlayerA(){
+    public boolean isPlayerA() {
         return isPlayerA;
     }
+
     /**
      * Check how many undos a player used
      */
-    public int getUndoCount(){
+    public int getUndoCount() {
         return undoCount;
     }
+
     /**
      * Increment the undo count when player undos move
      */
-    public void incUndoCount(){
+    public void incUndoCount() {
         undoCount++;
     }
+
     /**
      * Reset the undo count when new player turn
      */
-    public void resetUndo(){
+    public void resetUndo() {
         undoCount = 0;
     }
 }
