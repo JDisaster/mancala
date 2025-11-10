@@ -253,4 +253,17 @@ public class BoardModel {
     public void setUndoLastMove(boolean newState) {
         undoLastMove = newState;
     }
+
+    // BoardModel.java
+    public void undo() {
+        if (undoLastMove || previousBoard == null) return; 
+        pits = previousBoard.clone();  
+        switchTurn();                  
+        undoLastMove = true;         
+        getCurrentPlayer().incUndoCount(); 
+    }
+    public boolean canUndo() {
+        return previousBoard != null && !undoLastMove && getCurrentPlayer().getUndoCount() < 3;
+    }
+
 }
