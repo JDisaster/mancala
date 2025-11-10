@@ -19,7 +19,7 @@ public class BoardPanel extends JPanel {
 
         // Player B pits (top row: 12 → 7)
         for (int i = 12, col = 1; i >= 7; i--, col++) {
-            pitButtons[i] = new PitButton(i);   // Pass index to PitButton
+            pitButtons[i] = new PitButton(i);   
             gc.gridx = col;
             gc.gridy = 0;
             add(pitButtons[i], gc);
@@ -52,7 +52,7 @@ public class BoardPanel extends JPanel {
     /** 
      * Paints a title on the panel.
      */
-    @Override
+    
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawString("Mancala Game Board", 50, 50);
