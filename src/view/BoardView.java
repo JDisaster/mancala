@@ -6,6 +6,7 @@ import java.awt.*;
 public class BoardView extends JFrame {
     public JButton undoButton = new JButton("Undo"); //undo button
 
+     /*
     //player A's buttons
     public PitButton A1 = new PitButton();
     public PitButton A2 = new PitButton();
@@ -21,6 +22,8 @@ public class BoardView extends JFrame {
     public PitButton B4 = new PitButton();
     public PitButton B5 = new PitButton();
     public PitButton B6 = new PitButton();
+
+    */
 
     /**
      * Constructs a new view for the program
