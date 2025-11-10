@@ -19,7 +19,7 @@ public class MancalaMain {
         }
 
         BoardModel model = new BoardModel("Player A", "Player B");
-        model.initializeBoard(stonesPerPit); // ✅ 사용자 입력 반영
+        model.initializeBoard(stonesPerPit); // 
 
         BoardView view = new BoardView();
         BoardController controller = new BoardController(model, view);

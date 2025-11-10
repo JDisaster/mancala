@@ -15,4 +15,7 @@ public class PitButton extends JButton {
     public int getIndex() {
         return index;
     }
+    public void updateStones(int stones) {
+        setText(String.valueOf(stones));
+    }
 }
