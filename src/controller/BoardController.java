@@ -37,7 +37,6 @@ public class BoardController {
             view.displayNotif("Undo not allowed (either already undone, limit reached, or no saved state)");
             return;
         }
-
         model.undo();
         view.updateBoard(model);
     }

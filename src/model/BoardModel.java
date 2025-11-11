@@ -134,8 +134,11 @@ public class BoardModel {
             return;
         }
         // Undo functionality
-        saveState();
-        undoLastMove = false;
+        if(getCurrentPlayer().getUndoCount()<3){
+            saveState();
+            undoLastMove = false;
+        }
+
 
         // Grab all stones in selected pit
         int stones = pits[pitIndex];
@@ -256,7 +259,7 @@ public class BoardModel {
 
     // BoardModel.java
     public void undo() {
-        if (undoLastMove || previousBoard == null) return; 
+        if (!canUndo()) return; 
         pits = previousBoard.clone();  
         switchTurn();                  
         undoLastMove = true;         

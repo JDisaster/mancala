@@ -24,6 +24,7 @@ public class BoardPanel extends JPanel {
         // Player B pits (top row: 12 → 7)
         for (int i = 12, col = 1; i >= 7; i--, col++) {
             pitButtons[i] = new PitButton(i);   
+            pitButtons[i].setPreferredSize(new Dimension(80,80));
             gc.gridx = col;
             gc.gridy = 0;
             add(pitButtons[i], gc);
@@ -31,6 +32,7 @@ public class BoardPanel extends JPanel {
 
         // Mancala for player A (left side, index 6)
         pitButtons[6] = new PitButton(6);
+        pitButtons[6].setPreferredSize(new Dimension(80,160));
         gc.gridx = 0;
         gc.gridy = 0;
         gc.gridheight = 2;
@@ -40,6 +42,7 @@ public class BoardPanel extends JPanel {
         // Player A pits (bottom row: 0 → 5)
         for (int i = 0, col = 1; i <= 5; i++, col++) {
             pitButtons[i] = new PitButton(i);
+            pitButtons[i].setPreferredSize(new Dimension(80,80));
             gc.gridx = col;
             gc.gridy = 1;
             add(pitButtons[i], gc);
@@ -47,6 +50,7 @@ public class BoardPanel extends JPanel {
 
         // Mancala for player B (right side, index 13)
         pitButtons[13] = new PitButton(13);
+        pitButtons[13].setPreferredSize(new Dimension(80,160));
         gc.gridx = 7;
         gc.gridy = 0;
         gc.gridheight = 2;
@@ -56,7 +60,6 @@ public class BoardPanel extends JPanel {
     /** 
      * Paints a title on the panel.
      */
-    
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawString("Mancala Game Board", 50, 50);
@@ -69,7 +72,8 @@ public class BoardPanel extends JPanel {
         int[] pits = model.getBoard();
 
         for (int i = 0; i < 14; i++) {
-            pitButtons[i].setText(String.valueOf(pits[i]));
+            pitButtons[i].updateStones(pits[i]);
+            //pitButtons[i].setText(String.valueOf(pits[i]));
         }
 
         repaint();
