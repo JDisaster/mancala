@@ -1,15 +1,19 @@
 package model;
 
-/**
- * This class is used to test the MancalaModel independently
- */
 public class ModelTest {
     public static void main(String[] args) {
-        BoardModel model = new BoardModel("p1", "p2");
+        BoardModel model = new BoardModel("A", "B");
+        model.initializeBoard(4);
 
-        // board with 3 stones per pit
-        model.initializeBoard(3);
-        System.out.println("Initial board:");
+        System.out.println("Start state:");
+        model.printBoard();
+
+        model.makeMove(0);
+        System.out.println("\nAfter move from pit 0:");
+        model.printBoard();
+
+        model.makeMove(7);
+        System.out.println("\nAfter move from pit 7:");
         model.printBoard();
     }
 }

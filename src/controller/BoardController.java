@@ -1,54 +1,59 @@
 package controller;
 
 import view.BoardView;
+import view.PitButton;
 import model.BoardModel;
 
 public class BoardController {
 
-    BoardModel model; //model instance in controller
-    BoardView view; //view instance in controller
+    private BoardModel model;
+    private BoardView view;
 
     /**
      * Creates a controller with model and view components and
-     * connects functionality of model to GUI of view
-     * 
-     * @param model - model of the program
-     * @param view - view (GUI) of the program
+     * connects functionality of model to GUI of view.
      */
     public BoardController(BoardModel model, BoardView view) {
         this.model = model;
         this.view = view;
 
+        // Undo button listener
         view.undoButton.addActionListener(e -> undo());
+
+        // Pit button listeners
+        for (PitButton pit : view.getPitButtons()) {
+            pit.addActionListener(e -> handlePitClick(pit.getIndex()));
+        }
     }
 
-    /**
-     * "Starts" the program by setting the view visible
-     */
+    /** "Starts" the program by setting the view visible. */
     public void start() {
         view.setVisible(true);
     }
 
-    /**
-     * Undos the last move made by the current player; fails if the current player's
-     * last move was an undo, if the current player has already undone actions three times,
-     * or if there is no previous state to revert back to 
-     */
+    /** Handles the Undo button action. */
     public void undo() {
-        if (model.getUndoLastMove()) {
-            view.displayNotif("Undo not allowed twice in a row");
+        if (!model.canUndo()) {
+            view.displayNotif("Undo not allowed (either already undone, limit reached, or no saved state)");
             return;
         }
-        if (model.getCurrentPlayer().getUndoCount() >= 3) {
-            view.displayNotif("Undo limit reached for " + model.getCurrentPlayer().getName());
+
+        model.undo();
+        view.updateBoard(model);
+    }
+
+    /** Handles when a pit button is clicked. */
+    private void handlePitClick(int pitIndex) {
+        if (!model.isValidPit(pitIndex)) {
+            view.displayNotif("Invalid pit selected!");
             return;
         }
-        if (model.getPreviousBoard() != null) {
-            model.setBoard(model.getPreviousBoard());
-            model.getCurrentPlayer().incUndoCount();
-            model.setUndoLastMove(true);
-        } else {
-            view.displayNotif("No undo possible");
+
+        model.makeMove(pitIndex);
+        view.updateBoard(model);
+
+        if (model.isGameOver()) {
+            view.displayNotif("Game Over!");
         }
     }
 }

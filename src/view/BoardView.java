@@ -2,9 +2,12 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
+import model.BoardModel;
+
 
 public class BoardView extends JFrame {
-    public JButton undoButton = new JButton("Undo"); //undo button
+    public JButton undoButton = new JButton("Undo");
+    private BoardPanel boardPanel;
 
      /*
     //player A's buttons
@@ -25,7 +28,7 @@ public class BoardView extends JFrame {
 
     */
 
-    /**
+    /** 
      * Constructs a new view for the program
      */
     public BoardView() {
@@ -34,16 +37,25 @@ public class BoardView extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        BoardPanel panel = new BoardPanel();
-        add(panel);
+        boardPanel = new BoardPanel();
+        add(boardPanel, BorderLayout.CENTER);
+        add(undoButton, BorderLayout.SOUTH);
     }
 
-    /**
-     * Displays a GUI notification popup given a message
-     * 
-     * @param message - the message to display to the user
+    /** 
+     * Updates the visual board with the current state from the model
+     */
+    public void updateBoard(BoardModel model) {
+        boardPanel.updateBoard(model);
+    }
+
+    /** 
+     * Displays a popup notification message
      */
     public void displayNotif(String message) {
-        JOptionPane.showMessageDialog(null, message, "Notification", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, message, "Notification", JOptionPane.INFORMATION_MESSAGE);
+    }
+    public PitButton[] getPitButtons() {
+        return boardPanel.getPitButtons();
     }
 }

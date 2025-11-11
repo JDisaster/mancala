@@ -3,26 +3,20 @@ package view;
 import javax.swing.*;
 
 /**
- * A JButton subclass that should allow a dynamic amount of stones
- * to be displayed on the button
+ * A JButton subclass that stores its pit index.
  */
 public class PitButton extends JButton {
-    private int pitIndex;
 
-    public PitButton(int pitIndex){
-        this.pitIndex = pitIndex;
-        updateStones(0);
+    private int index;  // pit index (0–13)
+
+    public PitButton(int index) {
+        this.index = index;
     }
 
-    public int getPitIndex(){
-        return pitIndex;
+    public int getIndex() {
+        return index;
     }
-
-    /**
-     * Updates the button label to say how many stones in pits
-     * @param stones used for the amount of stones in pits
-     */
-    public void updateStones(int stones){
+    public void updateStones(int stones) {
         setText(String.valueOf(stones));
     }
 }
