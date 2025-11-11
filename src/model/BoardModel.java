@@ -11,7 +11,7 @@ public class BoardModel {
     private Player playerA;
     private Player playerB;
     private boolean gameOver; // Flag to indicate if the game has ended
-    private boolean undoLastMove;
+    private Player lastPlayer;
 
     /** Constructor: creates a new Mancala board with each player identified. */
     public BoardModel(String nameA, String nameb) {
@@ -36,7 +36,7 @@ public class BoardModel {
         playerA.resetUndo();
         playerB.resetUndo();
         currentPlayer = playerA;
-        undoLastMove = false;
+        currentPlayer.setUndoLastMove(false);
     }
 
     /** Prints the current board layout for testing. */
@@ -136,7 +136,8 @@ public class BoardModel {
         // Undo functionality
         if(getCurrentPlayer().getUndoCount()<3){
             saveState();
-            undoLastMove = false;
+            lastPlayer = currentPlayer;
+            currentPlayer.setUndoLastMove(false);
         }
 
 
@@ -180,6 +181,7 @@ public class BoardModel {
         // Switch players if last stone doesn't land in current players mancala
         if ((currentPlayer == playerA && pitIndex != 6) || (currentPlayer == playerB && pitIndex != 13)) {
             switchTurn();
+            currentPlayer.resetUndo();
         }
         // If one side of board is empty, move remaining stones in to their mancala sides
         if (isGameOver()) {
@@ -221,14 +223,7 @@ public class BoardModel {
         return gameOver;
     }
 
-    /**
-     * Getter for state of undo last move
-     * 
-     * @return - boolean for whether or not undo was the last move
-     */
-    public boolean getUndoLastMove() {
-        return undoLastMove;
-    }
+
 
     /**
      * Getter for previous board
@@ -248,25 +243,18 @@ public class BoardModel {
         pits = newBoard;
     }
 
-    /**
-     * Setter for the state of undo last move
-     * 
-     * @param newState - new state of whether or not undo was the last move
-     */
-    public void setUndoLastMove(boolean newState) {
-        undoLastMove = newState;
-    }
-
     // BoardModel.java
     public void undo() {
         if (!canUndo()) return; 
-        pits = previousBoard.clone();  
-        switchTurn();                  
-        undoLastMove = true;         
-        getCurrentPlayer().incUndoCount(); 
+        pits = previousBoard.clone();
+        currentPlayer = lastPlayer;                  
+        currentPlayer.setUndoLastMove(true);     
+        currentPlayer.incUndoCount(); 
+
+        previousBoard = null;
     }
     public boolean canUndo() {
-        return previousBoard != null && !undoLastMove && getCurrentPlayer().getUndoCount() < 3;
+        return previousBoard != null && lastPlayer != null && !lastPlayer.getUndoLastMove() && lastPlayer.getUndoCount() < 3;
     }
 
 }

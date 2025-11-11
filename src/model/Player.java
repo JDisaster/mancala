@@ -7,6 +7,8 @@ public class Player {
     private String name;
     private boolean isPlayerA;
     private int undoCount;
+    private boolean undoLastMove;
+
 
     // Constructor for players
     public Player(String name, boolean isPlayerA) {
@@ -48,5 +50,23 @@ public class Player {
      */
     public void resetUndo() {
         undoCount = 0;
+    }
+
+    /**
+     * Getter for state of undo last move
+     * 
+     * @return - boolean for whether or not undo was the last move
+     */
+    public boolean getUndoLastMove() {
+        return undoLastMove;
+    }
+    
+    /**
+     * Setter for the state of undo last move
+     * 
+     * @param newState - new state of whether or not undo was the last move
+     */
+    public void setUndoLastMove(boolean newState) {
+        undoLastMove = newState;
     }
 }

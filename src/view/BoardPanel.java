@@ -33,7 +33,7 @@ public class BoardPanel extends JPanel {
         // Mancala for player A (left side, index 6)
         pitButtons[6] = new PitButton(6);
         pitButtons[6].setPreferredSize(new Dimension(80,160));
-        gc.gridx = 0;
+        gc.gridx = 7;
         gc.gridy = 0;
         gc.gridheight = 2;
         add(pitButtons[6], gc);
@@ -51,7 +51,7 @@ public class BoardPanel extends JPanel {
         // Mancala for player B (right side, index 13)
         pitButtons[13] = new PitButton(13);
         pitButtons[13].setPreferredSize(new Dimension(80,160));
-        gc.gridx = 7;
+        gc.gridx = 0;
         gc.gridy = 0;
         gc.gridheight = 2;
         add(pitButtons[13], gc);
