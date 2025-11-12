@@ -73,7 +73,6 @@ public class BoardPanel extends JPanel {
 
         for (int i = 0; i < 14; i++) {
             pitButtons[i].updateStones(pits[i]);
-            //pitButtons[i].setText(String.valueOf(pits[i]));
         }
 
         repaint();

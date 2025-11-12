@@ -8,6 +8,7 @@ import model.BoardModel;
 public class BoardView extends JFrame {
     public JButton undoButton = new JButton("Undo");
     private BoardPanel boardPanel;
+    private JLabel turnLabel = new JLabel("Current Turn: Player A");
 
      /*
     //player A's buttons
@@ -39,14 +40,21 @@ public class BoardView extends JFrame {
 
         boardPanel = new BoardPanel();
         add(boardPanel, BorderLayout.CENTER);
-        add(undoButton, BorderLayout.SOUTH);
+
+        JPanel top = new JPanel(new FlowLayout());
+        top.add(turnLabel);
+        add(top,BorderLayout.NORTH);
+
+        add(undoButton, BorderLayout.SOUTH); 
     }
 
     /** 
-     * Updates the visual board with the current state from the model
+     * Updates the visual board with the current state from the model and whos turn it is
      */
     public void updateBoard(BoardModel model) {
         boardPanel.updateBoard(model);
+        String currentPlayerName = model.getCurrentPlayer().getName();
+        turnLabel.setText("Current Turn: " + currentPlayerName);
     }
 
     /** 
@@ -55,6 +63,7 @@ public class BoardView extends JFrame {
     public void displayNotif(String message) {
         JOptionPane.showMessageDialog(this, message, "Notification", JOptionPane.INFORMATION_MESSAGE);
     }
+
     public PitButton[] getPitButtons() {
         return boardPanel.getPitButtons();
     }
