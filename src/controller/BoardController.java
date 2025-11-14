@@ -2,6 +2,9 @@ package controller;
 
 import view.BoardView;
 import view.PitButton;
+
+import javax.swing.*;
+
 import model.BoardModel;
 
 public class BoardController {
@@ -26,8 +29,26 @@ public class BoardController {
         }
     }
 
-    /** "Starts" the program by setting the view visible. */
+    /** 
+     * Starts the program by getting user input to determine style and stones per pit (defaulting to 4),
+     * initializing the board, notifying the view, and finally displaying the view
+    */
     public void start() {
+        String input = JOptionPane.showInputDialog(
+            "Enter the number of stones per pit (3 or 4):"
+        );
+        int stonesPerPit = 4; // default
+        try {
+            int inputNum = Integer.parseInt(input);
+            if (inputNum == 3 || inputNum == 4) {
+                stonesPerPit = inputNum;
+            }
+        } catch (Exception e) {
+            view.displayNotif("Invalid input, defaulting to 4 stones per pit");
+        }
+        model.initializeBoard(stonesPerPit);
+        view.displayStyleSelection();
+        view.updateBoard(model);
         view.setVisible(true);
     }
 

@@ -42,7 +42,7 @@ public class PitButton extends JButton {
     }
 
     /**
-     * Method alters the painComponent so now it can draw shapes forthe pits and mancalas as well as the stones
+     * Method alters the paintComponent so now it can draw shapes for the pits and Mancalas as well as the stones
      */
     @Override 
     protected void paintComponent(Graphics g){
@@ -75,7 +75,7 @@ public class PitButton extends JButton {
         int centerX = width / 2;
         int centerY = height / 2;
         Random rand = new Random();
-        //Randomly pick where to place the cirlce (stones)
+        //Randomly pick where to place the circle (stones)
         for(int i = 0; i < stones; i++){
             double angle = rand.nextDouble() * 2 * Math.PI;
             double r = rand.nextDouble() * radius;
@@ -85,7 +85,7 @@ public class PitButton extends JButton {
         }
     }
 
-    //Alter the containes so now the buttons could be the shape of the pits and mancala
+    //Alter contains so now the buttons could be the shape of the pits and mancala
     @Override
     public boolean contains(int x, int y){
         if (isMancala()){

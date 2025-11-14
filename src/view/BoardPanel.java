@@ -5,8 +5,8 @@ import java.awt.*;
 import model.BoardModel;
 
 /**
- * BoardPanel is responsible for drawing the mancala game layout
- * It represents the pits and mancala
+ * BoardPanel is responsible for drawing the Mancala game layout
+ * It represents the pits and Mancala
  */
 public class BoardPanel extends JPanel {
 
