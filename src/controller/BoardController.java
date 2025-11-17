@@ -4,6 +4,8 @@ import view.BoardView;
 import view.PitButton;
 
 import javax.swing.*;
+import java.awt.Frame;
+import java.awt.FlowLayout;
 
 import model.BoardModel;
 
@@ -34,23 +36,48 @@ public class BoardController {
      * initializing the board, notifying the view, and finally displaying the view
     */
     public void start() {
-        String input = JOptionPane.showInputDialog(
-            "Enter the number of stones per pit (3 or 4):"
-        );
-        int stonesPerPit = 4; // default
-        try {
-            int inputNum = Integer.parseInt(input);
-            if (inputNum == 3 || inputNum == 4) {
-                stonesPerPit = inputNum;
-            }
-        } catch (Exception e) {
-            view.displayNotif("Invalid input, defaulting to 4 stones per pit");
-        }
-        model.initializeBoard(stonesPerPit);
+    
+        JDialog selectDialog = new JDialog((Frame) null, "Select Stones per Pit", true);
+        selectDialog.setLayout(new FlowLayout());
+        selectDialog.setSize(300, 120);
+        selectDialog.setLocationRelativeTo(null);
+
+        JLabel label = new JLabel("Choose the number of stones per pit:");
+        JButton threeBtn = new JButton("3 Stones");
+        JButton fourBtn = new JButton("4 Stones");
+        JButton cancelBtn = new JButton("Cancel");
+
+        final int[] stones = {4}; 
+
+        threeBtn.addActionListener(e -> {
+            stones[0] = 3;
+            selectDialog.dispose();
+        });
+
+        fourBtn.addActionListener(e -> {
+            stones[0] = 4;
+            selectDialog.dispose();
+        });
+
+        cancelBtn.addActionListener(e -> {
+            int confirm = JOptionPane.showConfirmDialog(
+                    null, "Exit game?", "Confirm Exit", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) System.exit(0);
+        });
+
+        selectDialog.add(label);
+        selectDialog.add(threeBtn);
+        selectDialog.add(fourBtn);
+        selectDialog.add(cancelBtn);
+        selectDialog.setVisible(true);
+
+     
+        model.initializeBoard(stones[0]);
         view.displayStyleSelection();
         view.updateBoard(model);
         view.setVisible(true);
     }
+
 
     /** Handles the Undo button action. */
     public void undo() {

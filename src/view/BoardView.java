@@ -26,8 +26,19 @@ public class BoardView extends JFrame {
      */
     public void updateBoard(BoardModel model) {
         boardPanel.updateBoard(model);
+
         String currentPlayerName = model.getCurrentPlayer().getName();
-        turnLabel.setText("Current Turn: " + currentPlayerName);
+        int[] pits = model.getBoard();
+        int scoreA = pits[6];
+        int scoreB = pits[13];
+
+        turnLabel.setText("Current Turn: " + currentPlayerName
+            + " | Score: A = " + scoreA + " | B = " + scoreB);
+
+        if (currentPlayerName.equals("Player A"))
+            turnLabel.setForeground(Color.BLUE);
+        else
+            turnLabel.setForeground(Color.RED);
     }
 
     /**
