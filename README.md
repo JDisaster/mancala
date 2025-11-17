@@ -32,14 +32,3 @@ src/style        - board style
 
 src/MancalaMain.java - program entry point  
 
-- Work done
-
-  Created MancalaModel and Pit classes for the game board.  
-  Added ModelTest for console testing.  
-  Verified board initialization and basic output.  
-
-- Next task
-
-  Implement move, capture, and undo logic.  
-  Connect model with view and controller.  
-  Add board style options.
