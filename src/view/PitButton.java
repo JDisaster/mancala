@@ -11,10 +11,24 @@ public class PitButton extends JButton {
 
     private int index;  // pit index (0–13)
     private int stones = 0;
+    private Color pitColor = new Color(235,220,180);
+    private Color stoneColor = new Color(144,213,255);
+    private Color outlineColor = Color.BLACK;
+    private Color stoneOutline = Color.BLACK;
+    private Color labelColor = Color.BLACK;
 
     public PitButton(int index) {
         this.index = index;
         setBorderPainted(false);
+    }
+
+    public void setColor(Color pit, Color stone, Color outline, Color StoneOut, Color label){
+        this.pitColor = pit;
+        this.stoneColor = stone;
+        this.outlineColor = outline;
+        this.stoneOutline = StoneOut;
+        this.labelColor = label;
+        repaint();
     }
 
     /**
@@ -53,17 +67,17 @@ public class PitButton extends JButton {
 
         //Draw mancalas
         if(isMancala()){
-            g2.setColor(new Color(235,220,180));
+            g2.setColor(pitColor);
             g2.setStroke(new BasicStroke(2));
             if(index == 6){
                 g2.fillRoundRect(0, 0, width-40, height, 60, 60);
-                g2.setColor(Color.BLACK);
+                g2.setColor(outlineColor);
                 g2.drawRoundRect(width-115,5,width - 50,height-10,60,60);
 
             }
             if(index == 13){
                 g2.fillRoundRect(width-85, 0, width-40, height, 60, 60);
-                g2.setColor(Color.BLACK);
+                g2.setColor(outlineColor);
                 g2.drawRoundRect(width-80,5,width - 50,height-10,60,60);
             }
             
@@ -81,6 +95,7 @@ public class PitButton extends JButton {
             }
             for(int i = 0; i<vertText.length(); i++){
                 char c = vertText.charAt(i);
+                g2.setColor(labelColor);
                 g2.setFont(new Font("Arial", Font.BOLD, 15));
                 g2.drawString(String.valueOf(c),labX,labY + i * 15);
             }
@@ -91,14 +106,14 @@ public class PitButton extends JButton {
             int circleX = (width-circleD)/2;
             int circleY = 14;
 
-            g2.setColor(new Color(235,220,180));
+            g2.setColor(pitColor);
             g2.fillOval(circleX, circleY, circleD, circleD);
-            g2.setColor(Color.BLACK);
+            g2.setColor(outlineColor);
             g2.drawOval(circleX+5,circleY+5,circleD-10,circleD-10);
             
             
             //Create labels for each pit
-            g2.setColor(Color.BLACK);
+            g2.setColor(outlineColor);
             int labelX = 0;
             int labelY = 0;
 
@@ -112,11 +127,12 @@ public class PitButton extends JButton {
                labelX =width/2 - 8;
                labelY = 12;
             }
+            g2.setColor(labelColor);
             g2.setFont(new Font("Arial", Font.BOLD, 15));
             g2.drawString(label, labelX, labelY);
         }
         //Draw the cirles for the stones and have it randomly be placed within the circle
-        g2.setColor(new Color(144,213,255));
+        g2.setColor(stoneColor);
         int stoneDiameter = 10;
         int padding = 2;
         int mPitX;
@@ -140,10 +156,10 @@ public class PitButton extends JButton {
                 int row = i%stonesPerCol;
                 int x = drawX + col * (stoneDiameter + padding) + (padding*3);
                 int y = drawY + row * (stoneDiameter + padding);
-                g2.setColor(new Color(144,213,255));
+                g2.setColor(stoneColor);
                 g2.fillOval(x,y,stoneDiameter+1,stoneDiameter+1);
-                g2.setColor(Color.BLACK);
-                g2.setStroke(new BasicStroke(2));
+                g2.setColor(stoneOutline);
+                g2.setStroke(new BasicStroke(1));
                 g2.drawOval(x, y, stoneDiameter, stoneDiameter);
             }
         }
@@ -161,10 +177,10 @@ public class PitButton extends JButton {
             if(stonesLeft > 0){
                 int x = pitCenterX - stoneDiameter/2;
                 int y = pitCenterY - stoneDiameter/2;
-                g2.setColor(new Color(144,213,255));
+                g2.setColor(stoneColor);
                 g2.fillOval(x,y,stoneDiameter+1,stoneDiameter+1);
-                g2.setColor(Color.BLACK);
-                g2.setStroke(new BasicStroke(2));
+                g2.setColor(stoneOutline);
+                g2.setStroke(new BasicStroke(1));
                 g2.drawOval(x, y, stoneDiameter, stoneDiameter);
                 stonesLeft--;
             }
@@ -184,10 +200,10 @@ public class PitButton extends JButton {
                     double angle = (2 * Math.PI /stoneCurrRing) * i;
                     int x = (int)(pitCenterX + rad * Math.cos(angle) - (stoneDiameter/2));
                     int y = (int)(pitCenterY + rad * Math.sin(angle) - (stoneDiameter/2));
-                    g2.setColor(new Color(144,213,255));
+                    g2.setColor(stoneColor);
                     g2.fillOval(x,y,stoneDiameter+1,stoneDiameter+1);
-                    g2.setColor(Color.BLACK);
-                    g2.setStroke(new BasicStroke(2));
+                    g2.setColor(stoneOutline);
+                    g2.setStroke(new BasicStroke(1));
                     g2.drawOval(x, y, stoneDiameter, stoneDiameter);
                 }
                 stonesLeft -= stoneCurrRing;
