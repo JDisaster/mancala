@@ -120,7 +120,7 @@ public class PitButton extends JButton {
         //Draw the cirles for the stones and have it randomly be placed within the circle
         g2.setColor(new Color(144,213,255));
         int stoneDiameter = 10;
-        int padding = 15;
+        int padding = 5;
         int mPitX;
         int mPitY;
         int mPitW;
@@ -138,35 +138,78 @@ public class PitButton extends JButton {
                 mPitW = width - 40;
                 mPitH = height;
             }
+            int arc = 60;
+            int cor = arc/2+padding;
+            int drawX = mPitX + cor;
+            int drawY = mPitY + cor;
+            int drawW = mPitW - 2*cor;
+            int drawH = mPitH -2*cor;
+            int stonesPerCol = drawH / (stoneDiameter + padding);
+            int totalCols = 2;
+            int rowIndex = 0;
+            int colIndex = 0;
 
-            Random rand = new Random();
             //Randomly pick where to place the circle (stones) in mancala
             for(int i = 0; i < stones; i++){
-                int x = mPitX + padding + rand.nextInt(mPitW - 2*padding - stoneDiameter);
-                int y = mPitY + padding + rand.nextInt(mPitH - 2*padding - stoneDiameter);
+                int x = drawX + colIndex * (drawW - stoneDiameter);
+                int y = drawY + padding + rowIndex*(stoneDiameter+2);
                 g2.setColor(new Color(144,213,255));
                 g2.fillOval(x,y,stoneDiameter+1,stoneDiameter+1);
                 g2.setColor(Color.BLACK);
                 g2.setStroke(new BasicStroke(2));
                 g2.drawOval(x, y, stoneDiameter, stoneDiameter);
+
+                rowIndex++;
+
+                if(rowIndex>=stonesPerCol){
+                    rowIndex=0;
+                    colIndex++;
+                }
             }
         }
         else{
-            int radius = Math.min(width,height)/2-padding - stoneDiameter/2;
-            int centerX = width / 2;
-            int centerY = height / 2;
-            Random rand = new Random();
-            //Randomly pick where to place the circle (stones) in pits
-            for(int i = 0; i < stones; i++){
-                double angle = rand.nextDouble() * 2 * 3.14;
-                double r = rand.nextDouble() * radius;
-                int x = (int)(centerX + r * Math.cos(angle) - (stoneDiameter/2));
-                int y = (int)(centerY + r * Math.sin(angle) - (stoneDiameter/2));
+            //int radius = Math.min(width,height)/2-padding - stoneDiameter/2;
+            int circleD = Math.min(width,height-20);
+            int circleX = (width-circleD)/2;
+            int circleY = 14;
+            int pitCenterX = circleX + circleD /2;
+            int pitCenterY = circleY + circleD /2;
+            int spacing = 2;
+            int stonesLeft = stones;
+
+            if(stonesLeft > 0){
+                int x = pitCenterX - stoneDiameter/2;
+                int y = pitCenterY - stoneDiameter/2;
                 g2.setColor(new Color(144,213,255));
                 g2.fillOval(x,y,stoneDiameter+1,stoneDiameter+1);
                 g2.setColor(Color.BLACK);
                 g2.setStroke(new BasicStroke(2));
                 g2.drawOval(x, y, stoneDiameter, stoneDiameter);
+                stonesLeft--;
+            }
+
+            int ringStep = stoneDiameter + spacing;
+            int ring = 1;
+            while(stonesLeft > 0){
+
+                int rad = ring * ringStep;
+
+                double circum = 2*Math.PI*rad;
+                int maxStoneRing = Math.max(1,(int)(circum / (stoneDiameter+spacing)));
+                int stoneCurrRing = Math.min(stonesLeft, maxStoneRing);
+
+                for(int i = 0; i < stoneCurrRing; i++){
+                    double angle = (2 * Math.PI /stoneCurrRing) * i;
+                    int x = (int)(pitCenterX + rad * Math.cos(angle) - (stoneDiameter/2));
+                    int y = (int)(pitCenterY + rad * Math.sin(angle) - (stoneDiameter/2));
+                    g2.setColor(new Color(144,213,255));
+                    g2.fillOval(x,y,stoneDiameter+1,stoneDiameter+1);
+                    g2.setColor(Color.BLACK);
+                    g2.setStroke(new BasicStroke(2));
+                    g2.drawOval(x, y, stoneDiameter, stoneDiameter);
+                }
+                stonesLeft -= stoneCurrRing;
+                ring++;
             }
         }
     }
