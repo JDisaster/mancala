@@ -4,8 +4,7 @@ import view.BoardView;
 import view.PitButton;
 
 import javax.swing.*;
-import java.awt.Frame;
-import java.awt.FlowLayout;
+import java.awt.*;
 
 import model.BoardModel;
 
@@ -31,12 +30,14 @@ public class BoardController {
         }
     }
 
-    /** 
-     * Starts the program by getting user input to determine style and stones per pit (defaulting to 4),
-     * initializing the board, notifying the view, and finally displaying the view
-    */
+    /** "Starts" the program by setting the view visible. */
     public void start() {
-    
+        //Show in empty board first after syle selection
+        view.displayStyleSelection();
+        model.initializeBoard(0);
+        view.updateBoard(model);
+        view.setVisible(true);
+
         JDialog selectDialog = new JDialog((Frame) null, "Select Stones per Pit", true);
         selectDialog.setLayout(new FlowLayout());
         selectDialog.setSize(300, 120);
@@ -73,11 +74,8 @@ public class BoardController {
 
      
         model.initializeBoard(stones[0]);
-        view.displayStyleSelection();
         view.updateBoard(model);
-        view.setVisible(true);
     }
-
 
     /** Handles the Undo button action. */
     public void undo() {
