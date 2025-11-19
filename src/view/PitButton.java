@@ -3,7 +3,6 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
-import java.util.Random;
 
 /**
  * A JButton subclass that stores its pit index.
@@ -48,7 +47,6 @@ public class PitButton extends JButton {
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        System.out.println("REpainting pit "+ index);
         int width = getWidth();
         int height = getHeight();
         String label = "";
@@ -120,55 +118,37 @@ public class PitButton extends JButton {
         //Draw the cirles for the stones and have it randomly be placed within the circle
         g2.setColor(new Color(144,213,255));
         int stoneDiameter = 10;
-        int padding = 5;
+        int padding = 2;
         int mPitX;
         int mPitY;
-        int mPitW;
         int mPitH;
         if(isMancala()){
-            if(index == 6){
-                mPitX = 0;
-                mPitY = 0;
-                mPitW = width - 40;
-                mPitH = height;
-            }
-            else{
-                mPitX = width - 85;
-                mPitY = 0;
-                mPitW = width - 40;
-                mPitH = height;
-            }
+            mPitY = 0;
+            mPitH = height;
+            if(index == 6){mPitX = 0;}
+            else{mPitX = width - 85;}
             int arc = 60;
-            int cor = arc/2+padding;
-            int drawX = mPitX + cor;
+            int cor = arc/2 + padding;
+            int drawX = mPitX + padding;
             int drawY = mPitY + cor;
-            int drawW = mPitW - 2*cor;
-            int drawH = mPitH -2*cor;
-            int stonesPerCol = drawH / (stoneDiameter + padding);
-            int totalCols = 2;
-            int rowIndex = 0;
-            int colIndex = 0;
+            int drawH = mPitH - 2 * cor;
+            int stonesPerCol = Math.max(1,drawH / (stoneDiameter + padding)); //Number of stones to fit in each column
 
-            //Randomly pick where to place the circle (stones) in mancala
+            //Draw circles down a line in mancala until no space then make new row
             for(int i = 0; i < stones; i++){
-                int x = drawX + colIndex * (drawW - stoneDiameter);
-                int y = drawY + padding + rowIndex*(stoneDiameter+2);
+                int col = i/stonesPerCol;
+                int row = i%stonesPerCol;
+                int x = drawX + col * (stoneDiameter + padding) + (padding*3);
+                int y = drawY + row * (stoneDiameter + padding);
                 g2.setColor(new Color(144,213,255));
                 g2.fillOval(x,y,stoneDiameter+1,stoneDiameter+1);
                 g2.setColor(Color.BLACK);
                 g2.setStroke(new BasicStroke(2));
                 g2.drawOval(x, y, stoneDiameter, stoneDiameter);
-
-                rowIndex++;
-
-                if(rowIndex>=stonesPerCol){
-                    rowIndex=0;
-                    colIndex++;
-                }
             }
         }
         else{
-            //int radius = Math.min(width,height)/2-padding - stoneDiameter/2;
+            //Draw stones in pits
             int circleD = Math.min(width,height-20);
             int circleX = (width-circleD)/2;
             int circleY = 14;
@@ -177,6 +157,7 @@ public class PitButton extends JButton {
             int spacing = 2;
             int stonesLeft = stones;
 
+            //Draw the inital stone to be circled
             if(stonesLeft > 0){
                 int x = pitCenterX - stoneDiameter/2;
                 int y = pitCenterY - stoneDiameter/2;
@@ -188,6 +169,7 @@ public class PitButton extends JButton {
                 stonesLeft--;
             }
 
+            //Create rings around the stone for easier counting and no over laps
             int ringStep = stoneDiameter + spacing;
             int ring = 1;
             while(stonesLeft > 0){
@@ -195,8 +177,8 @@ public class PitButton extends JButton {
                 int rad = ring * ringStep;
 
                 double circum = 2*Math.PI*rad;
-                int maxStoneRing = Math.max(1,(int)(circum / (stoneDiameter+spacing)));
-                int stoneCurrRing = Math.min(stonesLeft, maxStoneRing);
+                int maxStoneRing = Math.max(1,(int)(circum / (stoneDiameter+spacing))); //Num of stones to fit in a ring size
+                int stoneCurrRing = Math.min(stonesLeft, maxStoneRing); //The amount of stones to be in current ring
 
                 for(int i = 0; i < stoneCurrRing; i++){
                     double angle = (2 * Math.PI /stoneCurrRing) * i;
