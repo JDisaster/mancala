@@ -51,37 +51,123 @@ public class PitButton extends JButton {
         
         int width = getWidth();
         int height = getHeight();
+        String label = "";
 
         //Draw mancalas
         if(isMancala()){
             g2.setColor(new Color(235,220,180));
-            g2.fillRoundRect(0, 0, width, height, 60, 60);
-            g2.setColor(Color.BLACK);
             g2.setStroke(new BasicStroke(2));
-            g2.drawRoundRect(5,5,width - 10,height-10,60,60);
+            if(index == 6){
+                g2.fillRoundRect(0, 0, width-40, height, 60, 60);
+                g2.setColor(Color.BLACK);
+                g2.drawRoundRect(width-115,5,width - 50,height-10,60,60);
+
+            }
+            if(index == 13){
+                g2.fillRoundRect(width-85, 0, width-40, height, 60, 60);
+                g2.setColor(Color.BLACK);
+                g2.drawRoundRect(width-80,5,width - 50,height-10,60,60);
+            }
+            
+            //Label the Mancala pits in vertical orientation
+            String vertText = "";
+            int labX = 0;
+            int labY = 20;
+            if(index == 6){
+                vertText = "MANCALA A";
+                labX = width-20;
+            }
+            else{
+                vertText = "MANCALA B";
+                labX = 5;
+            }
+            for(int i = 0; i<vertText.length(); i++){
+                char c = vertText.charAt(i);
+                g2.setFont(new Font("Arial", Font.BOLD, 15));
+                g2.drawString(String.valueOf(c),labX,labY + i * 15);
+            }
         }
         //Draw the pits
         else{
+            int circleD = Math.min(width,height-20);
+            int circleX = (width-circleD)/2;
+            int circleY = 14;
+
             g2.setColor(new Color(235,220,180));
-            g2.fillOval(0, 0, width, height);
+            g2.fillOval(circleX, circleY, circleD, circleD);
             g2.setColor(Color.BLACK);
-            g2.drawOval(5,5,width-10,height-10);
+            g2.drawOval(circleX+5,circleY+5,circleD-10,circleD-10);
+            
+            
+            //Create labels for each pit
+            g2.setColor(Color.BLACK);
+            int labelX = 0;
+            int labelY = 0;
+
+            if(index<=5){
+                label = "A" + (index + 1);
+                labelX = width/2 - 10;
+                labelY = height-12;
+            }
+            else{
+               label = "B" + (index - 6);
+               labelX =width/2 - 8;
+               labelY = 12;
+            }
+            g2.setFont(new Font("Arial", Font.BOLD, 15));
+            g2.drawString(label, labelX, labelY);
         }
         //Draw the cirles for the stones and have it randomly be placed within the circle
-        g2.setColor(Color.BLUE);
+        g2.setColor(new Color(144,213,255));
         int stoneDiameter = 10;
-        int padding = 5;
-        int radius = Math.min(width,height)/2-padding - stoneDiameter/2;
-        int centerX = width / 2;
-        int centerY = height / 2;
-        Random rand = new Random();
-        //Randomly pick where to place the circle (stones)
-        for(int i = 0; i < stones; i++){
-            double angle = rand.nextDouble() * 2 * Math.PI;
-            double r = rand.nextDouble() * radius;
-            int x = (int)(centerX + r * Math.cos(angle) - (stoneDiameter/2));
-            int y = (int)(centerY + r * Math.sin(angle) - (stoneDiameter/2));
-            g2.fillOval(x,y,stoneDiameter,stoneDiameter);
+        int padding = 15;
+        int mPitX;
+        int mPitY;
+        int mPitW;
+        int mPitH;
+        if(isMancala()){
+            if(index == 6){
+                mPitX = 0;
+                mPitY = 0;
+                mPitW = width - 40;
+                mPitH = height;
+            }
+            else{
+                mPitX = width - 85;
+                mPitY = 0;
+                mPitW = width - 40;
+                mPitH = height;
+            }
+
+            Random rand = new Random();
+            //Randomly pick where to place the circle (stones)
+            for(int i = 0; i < stones; i++){
+                int x = mPitX + padding + rand.nextInt(mPitW - 2*padding - stoneDiameter);
+                int y = mPitY + padding + rand.nextInt(mPitH - 2*padding - stoneDiameter);
+                g2.setColor(new Color(144,213,255));
+                g2.fillOval(x,y,stoneDiameter+1,stoneDiameter+1);
+                g2.setColor(Color.BLACK);
+                g2.setStroke(new BasicStroke(2));
+                g2.drawOval(x, y, stoneDiameter, stoneDiameter);
+            }
+        }
+        else{
+            int radius = Math.min(width,height)/2-padding - stoneDiameter/2;
+            int centerX = width / 2;
+            int centerY = height / 2;
+            Random rand = new Random();
+            //Randomly pick where to place the circle (stones)
+            for(int i = 0; i < stones; i++){
+                double angle = rand.nextDouble() * 2 * Math.PI;
+                double r = rand.nextDouble() * radius;
+                int x = (int)(centerX + r * Math.cos(angle) - (stoneDiameter/2));
+                int y = (int)(centerY + r * Math.sin(angle) - (stoneDiameter/2));
+                g2.setColor(new Color(144,213,255));
+                g2.fillOval(x,y,stoneDiameter+1,stoneDiameter+1);
+                g2.setColor(Color.BLACK);
+                g2.setStroke(new BasicStroke(2));
+                g2.drawOval(x, y, stoneDiameter, stoneDiameter);
+            }
         }
     }
 
