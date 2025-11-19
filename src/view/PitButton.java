@@ -48,7 +48,7 @@ public class PitButton extends JButton {
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        
+        System.out.println("REpainting pit "+ index);
         int width = getWidth();
         int height = getHeight();
         String label = "";
@@ -140,7 +140,7 @@ public class PitButton extends JButton {
             }
 
             Random rand = new Random();
-            //Randomly pick where to place the circle (stones)
+            //Randomly pick where to place the circle (stones) in mancala
             for(int i = 0; i < stones; i++){
                 int x = mPitX + padding + rand.nextInt(mPitW - 2*padding - stoneDiameter);
                 int y = mPitY + padding + rand.nextInt(mPitH - 2*padding - stoneDiameter);
@@ -156,9 +156,9 @@ public class PitButton extends JButton {
             int centerX = width / 2;
             int centerY = height / 2;
             Random rand = new Random();
-            //Randomly pick where to place the circle (stones)
+            //Randomly pick where to place the circle (stones) in pits
             for(int i = 0; i < stones; i++){
-                double angle = rand.nextDouble() * 2 * Math.PI;
+                double angle = rand.nextDouble() * 2 * 3.14;
                 double r = rand.nextDouble() * radius;
                 int x = (int)(centerX + r * Math.cos(angle) - (stoneDiameter/2));
                 int y = (int)(centerY + r * Math.sin(angle) - (stoneDiameter/2));
@@ -181,5 +181,13 @@ public class PitButton extends JButton {
             Ellipse2D circle = new Ellipse2D.Double(0,0,getWidth(),getHeight());
             return circle.contains(x,y);
         }
+    }
+
+    /**
+     * Get the amount of stones in pit
+     * @return the amount of stones in pit
+     */
+    public int getStoneCount(){
+        return stones;
     }
 }

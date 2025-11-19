@@ -72,10 +72,10 @@ public class BoardPanel extends JPanel {
         int[] pits = model.getBoard();
 
         for (int i = 0; i < 14; i++) {
-            pitButtons[i].updateStones(pits[i]);
+            if(pitButtons[i].getStoneCount() != pits[i]){
+                pitButtons[i].updateStones(pits[i]);
+            }
         }
-
-        repaint();
     }
 
     /** 
