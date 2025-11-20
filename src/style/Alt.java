@@ -15,7 +15,7 @@ public class Alt implements BoardStyle {
         view.getBoardPanel().setBackground(Color.BLACK);
 
         for(var pit : view.getBoardPanel().getPitButtons()){
-            pit.setColor(Color.BLACK, new Color(157, 0, 255), new Color(0,240,255),Color.WHITE, Color.WHITE);
+            pit.setColor(Color.BLACK, Color.WHITE, Color.GREEN, Color.YELLOW, Color.BLACK, Color.WHITE, Color.BLUE, Color.RED);
         }
         view.add(view.getBoardPanel(), BorderLayout.CENTER);
 
@@ -29,8 +29,10 @@ public class Alt implements BoardStyle {
         //view.getUndoButton().setContentAreaFilled(false);
         view.getUndoButton().setBorderPainted(false);
 
-        view.getUndoButton().setBackground(new Color(157, 0, 255));
+        view.getUndoButton().setBackground(new Color(40,40,40));
         view.getUndoButton().setForeground(Color.WHITE);
         view.add(view.getUndoButton(), BorderLayout.SOUTH); 
+        //new Color(157, 0, 255)
+        //new Color(0,240,255)
     }
 }

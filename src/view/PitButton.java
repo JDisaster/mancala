@@ -13,21 +13,27 @@ public class PitButton extends JButton {
     private int stones = 0;
     private Color pitColor = new Color(235,220,180);
     private Color stoneColor = new Color(144,213,255);
-    private Color outlineColor = Color.BLACK;
+    private Color outlineAColor = Color.BLACK;
+    private Color outlineBColor = Color.BLACK;
     private Color stoneOutline = Color.BLACK;
     private Color labelColor = Color.BLACK;
+    private Color MancalaAColor = Color.BLACK;
+    private Color MancalaBColor = Color.BLACK;
 
     public PitButton(int index) {
         this.index = index;
         setBorderPainted(false);
     }
 
-    public void setColor(Color pit, Color stone, Color outline, Color StoneOut, Color label){
+    public void setColor(Color pit, Color stone, Color outlineA, Color outlineB, Color StoneOut, Color label, Color manA, Color manB){
         this.pitColor = pit;
         this.stoneColor = stone;
-        this.outlineColor = outline;
+        this.outlineAColor = outlineA;
+        this.outlineBColor = outlineB;
         this.stoneOutline = StoneOut;
         this.labelColor = label;
+        this.MancalaAColor = manA;
+        this.MancalaBColor = manB;
         repaint();
     }
 
@@ -71,13 +77,13 @@ public class PitButton extends JButton {
             g2.setStroke(new BasicStroke(2));
             if(index == 6){
                 g2.fillRoundRect(0, 0, width-40, height, 60, 60);
-                g2.setColor(outlineColor);
+                g2.setColor(MancalaAColor);
                 g2.drawRoundRect(width-115,5,width - 50,height-10,60,60);
 
             }
             if(index == 13){
                 g2.fillRoundRect(width-85, 0, width-40, height, 60, 60);
-                g2.setColor(outlineColor);
+                g2.setColor(MancalaBColor);
                 g2.drawRoundRect(width-80,5,width - 50,height-10,60,60);
             }
             
@@ -108,12 +114,19 @@ public class PitButton extends JButton {
 
             g2.setColor(pitColor);
             g2.fillOval(circleX, circleY, circleD, circleD);
-            g2.setColor(outlineColor);
-            g2.drawOval(circleX+5,circleY+5,circleD-10,circleD-10);
+            if(index < 7){
+                g2.setColor(outlineAColor);
+                g2.drawOval(circleX+5,circleY+5,circleD-10,circleD-10);
+            }
+            else{
+                g2.setColor(outlineBColor);
+                g2.drawOval(circleX+5,circleY+5,circleD-10,circleD-10);
+            }
+            
             
             
             //Create labels for each pit
-            g2.setColor(outlineColor);
+            //g2.setColor(outlineColor);
             int labelX = 0;
             int labelY = 0;
 
