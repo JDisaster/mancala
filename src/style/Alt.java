@@ -20,9 +20,17 @@ public class Alt implements BoardStyle {
         view.add(view.getBoardPanel(), BorderLayout.CENTER);
 
         JPanel top = new JPanel(new FlowLayout());
+        top.setBackground(Color.BLACK);
         top.add(view.getTurnLabel());
         view.add(top, BorderLayout.NORTH);
 
+        view.getUndoButton().setOpaque(true);
+
+        //view.getUndoButton().setContentAreaFilled(false);
+        view.getUndoButton().setBorderPainted(false);
+
+        view.getUndoButton().setBackground(new Color(157, 0, 255));
+        view.getUndoButton().setForeground(Color.WHITE);
         view.add(view.getUndoButton(), BorderLayout.SOUTH); 
     }
 }
