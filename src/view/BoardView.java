@@ -70,6 +70,49 @@ public class BoardView extends JFrame {
         style.initView(this);
     }
 
+    /**
+     * Displays the stone count that the players want to start with
+     * @return an array of stones
+     */
+    public int displayStoneCount(){
+
+        final int[] result = {-1};
+        JDialog selectDialog = new JDialog((Frame) null, "Select Stones per Pit", true);
+        selectDialog.setLayout(new FlowLayout());
+        selectDialog.setSize(300, 120);
+        selectDialog.setLocationRelativeTo(null);
+
+        JLabel label = new JLabel("Choose the number of stones per pit:");
+        JButton threeBtn = new JButton("3 Stones");
+        JButton fourBtn = new JButton("4 Stones");
+        JButton cancelBtn = new JButton("Cancel");
+
+        threeBtn.addActionListener(e -> {
+            result[0] = 3;
+            selectDialog.dispose();
+        });
+
+        fourBtn.addActionListener(e -> {
+            result[0] = 4;
+            selectDialog.dispose();
+        });
+
+        cancelBtn.addActionListener(e -> {
+            int confirm = JOptionPane.showConfirmDialog(
+                    null, "Exit game?", "Confirm Exit", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) System.exit(0);
+        });
+
+
+        selectDialog.add(label);
+        selectDialog.add(threeBtn);
+        selectDialog.add(fourBtn);
+        selectDialog.add(cancelBtn);
+        selectDialog.setVisible(true);
+
+        return result[0];
+    }
+
     /** 
      * Displays a popup notification message
      */
