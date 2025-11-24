@@ -3,9 +3,6 @@ package controller;
 import view.BoardView;
 import view.PitButton;
 
-import javax.swing.*;
-import java.awt.*;
-
 import model.BoardModel;
 
 public class BoardController {
