@@ -4,6 +4,13 @@ import view.BoardView;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Alternative visual style that the players can choose
+ * This implements a neon style game board utilizing fun colors 
+ * 
+ * Author: Aidan Zheng, Jacob Thomas
+ */
+
 public class Alt implements BoardStyle {
     @Override
     public void initView(BoardView view){

@@ -5,6 +5,13 @@ import java.awt.*;
 import model.BoardModel;
 import style.*;
 
+/**
+ * Primary GUI components for the Mancala application
+ * Configues stone count, style selection, and notification dialogs
+ * Has some controller aspects but no logic
+ * 
+ * Author: Aidan Zheng, Kwonjae Lee, Jacob Thomas
+ */
 
 public class BoardView extends JFrame {
     public JButton undoButton;

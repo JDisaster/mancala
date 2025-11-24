@@ -7,6 +7,8 @@ import model.BoardModel;
 /**
  * BoardPanel is responsible for drawing the Mancala game layout
  * It represents the pits and Mancala
+ * 
+ * Author: Aidan Zheng, Kwonjae Lee, Jacob Thomas 
  */
 public class BoardPanel extends JPanel {
 

@@ -1,5 +1,11 @@
 package model;
 
+/**
+ * Simple test driver for the BoardModel class
+ * 
+ * Author: Kwonjae Lee, Jacob Thomas
+ */
+
 public class ModelTest {
     public static void main(String[] args) {
         BoardModel model = new BoardModel("A", "B");

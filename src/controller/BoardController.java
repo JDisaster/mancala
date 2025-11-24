@@ -5,6 +5,14 @@ import view.PitButton;
 
 import model.BoardModel;
 
+/**
+ * Controller for coordinating interactions between the BoardModel and Boardview in the application
+ * This class wires user actions from the GUI to the game logic 
+ * Initializes game, handles pit selections, and manages undo funciton
+ * 
+ * Author: Aidan Zheng, Kwonjae Lee, Jacob Thomas
+ */
+
 public class BoardController {
 
     private BoardModel model;

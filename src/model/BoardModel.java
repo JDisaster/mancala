@@ -2,6 +2,10 @@ package model;
 
 /**
  * MancalaModel represents the main data structure of the Mancala game.
+ * It contains all the core game state and logic 
+ * Responsible for working the undo funciton, pit ownership, stone distrubution, checks if game is over
+ * 
+ * Author: Aidan Zheng, Kwonjae Lee, Jacob Thomas
  */
 public class BoardModel {
 

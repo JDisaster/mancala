@@ -2,6 +2,8 @@ package model;
 
 /**
  * The player class is used to keep track of player info such as their name, undo count, and which players turn it is
+ * 
+ * Author: Aidan Zheng
  */
 public class Player {
     private String name;

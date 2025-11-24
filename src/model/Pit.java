@@ -3,6 +3,8 @@ package model;
 /**
  * Pit represents a single pit in the Mancala board.
  * It stores and manages the number of stones inside the pit.
+ * 
+ * Author: Kwonjae Lee
  */
 public class Pit {
     private int stones;

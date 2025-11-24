@@ -6,6 +6,10 @@ import java.awt.geom.Ellipse2D;
 
 /**
  * A JButton subclass that stores its pit index.
+ * This JButton represents a single put or mancala
+ * This class holds the physical properties for both the pits, mancala, and stones 
+ * 
+ * Author: Aidan Zheng, Kwonjae Lee, Jacob Thomas
  */
 public class PitButton extends JButton {
 

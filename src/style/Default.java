@@ -5,7 +5,15 @@ import java.awt.*;
 
 import view.BoardView;
 
+/**
+ * Default visual that the users can choose
+ * It incorporates a wood board and basic stone color
+ * 
+ * Author: Jacob Thomas
+ */
+
 public class Default implements BoardStyle {
+    @Override
     public void initView(BoardView view) {
         view.setTitle("Default Mancala Game Style");
         view.setSize(800, 400);
