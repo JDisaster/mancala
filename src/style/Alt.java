@@ -12,6 +12,13 @@ import java.awt.*;
  */
 
 public class Alt implements BoardStyle {
+    /**
+     * Completes the contract of BoardStyle
+     * Completly changes the boards view style by changing colors of different components
+     * Moves the components into desired location on board
+     * 
+     * @param view changes the boardview
+     */
     @Override
     public void initView(BoardView view){
         view.setTitle("Neon Mancala Style");

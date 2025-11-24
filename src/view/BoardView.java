@@ -127,22 +127,42 @@ public class BoardView extends JFrame {
         JOptionPane.showMessageDialog(this, message, "Notification", JOptionPane.INFORMATION_MESSAGE);
     }
 
+    /**
+     * Get the pitbuttons in the boardPanel
+     * @return the pitbuttons
+     */
     public PitButton[] getPitButtons() {
         return boardPanel.getPitButtons();
     }
 
+    /**
+     * Get the board panel
+     * @return the board panel
+     */
     public BoardPanel getBoardPanel() {
         return boardPanel;
     }
 
+    /**
+     * Get the undo button
+     * @return the undoButton
+     */
     public JButton getUndoButton() {
         return undoButton;
     }
 
+    /**
+     * Get the turn label at header
+     * @return the turnLabel
+     */
     public JLabel getTurnLabel() {
         return turnLabel;
     }
 
+    /**
+     * Changes the style of the board
+     * @param newStyle is style to use
+     */
     public void setStyle(BoardStyle newStyle) {
         style = newStyle;
     }

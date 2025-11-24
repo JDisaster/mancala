@@ -24,11 +24,26 @@ public class PitButton extends JButton {
     private Color MancalaAColor = Color.BLACK;
     private Color MancalaBColor = Color.BLACK;
 
+    /**
+     * Constructs the PitButton
+     * @param index the specifed index of pit
+     */
     public PitButton(int index) {
         this.index = index;
         setBorderPainted(false);
     }
 
+    /**
+     * Method used to change the colors set on the board for different boards to utalize if wanted
+     * @param pit color of pits
+     * @param stone color of stones 
+     * @param outlineA color of player A outlines
+     * @param outlineB color of player B outlines
+     * @param StoneOut color of stone outliens
+     * @param label color of labels like A1...
+     * @param manA color of mancala of player A
+     * @param manB color of mancala of player B
+     */
     public void setColor(Color pit, Color stone, Color outlineA, Color outlineB, Color StoneOut, Color label, Color manA, Color manB){
         this.pitColor = pit;
         this.stoneColor = stone;

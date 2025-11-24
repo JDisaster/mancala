@@ -13,6 +13,12 @@ import view.BoardView;
  */
 
 public class Default implements BoardStyle {
+    /**
+     * Completes the contract of BoardStyle
+     * Moves panels and buttons into desired locations
+     * 
+     * @param view changes the BoardView
+     */
     @Override
     public void initView(BoardView view) {
         view.setTitle("Default Mancala Game Style");
