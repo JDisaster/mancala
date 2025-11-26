@@ -1,3 +1,8 @@
+/**
+ * @author Aidan Zheng, Kwonjae Lee, Jacob Thomas
+ * @version 1.0
+ */
+
 package controller;
 
 import view.BoardView;
@@ -6,11 +11,9 @@ import view.PitButton;
 import model.BoardModel;
 
 /**
- * Controller for coordinating interactions between the BoardModel and Boardview in the application
- * This class wires user actions from the GUI to the game logic 
- * Initializes game, handles pit selections, and manages undo funciton
- * 
- * Author: Aidan Zheng, Kwonjae Lee, Jacob Thomas
+ * Controller for coordinating interactions between the BoardModel and Boardview
+ * in the application. Wires user actions from the GUI to the game logic.
+ * Initializes game, handles pit selections, and manages undo function
  */
 
 public class BoardController {
@@ -20,7 +23,10 @@ public class BoardController {
 
     /**
      * Creates a controller with model and view components and
-     * connects functionality of model to GUI of view.
+     * connects functionality of model to GUI of view
+     * 
+     * @param model - The model object to use
+     * @param view  - The view object to use
      */
     public BoardController(BoardModel model, BoardView view) {
         this.model = model;
@@ -35,21 +41,26 @@ public class BoardController {
         }
     }
 
-    /** "Starts" the program by setting the view visible. */
+    /**
+     * Starts the program by initializing the model and
+     * view and displaying the view
+     */
     public void start() {
-        //Show an empty board first after syle selection
+        // Show an empty board first after style selection
         view.displayStyleSelection();
         model.initializeBoard(0);
         view.updateBoard(model);
         view.setVisible(true);
 
         int stones = view.displayStoneCount();
-     
+
         model.initializeBoard(stones);
         view.updateBoard(model);
     }
 
-    /** Handles the Undo button action. */
+    /**
+     * Handles the Undo button action
+     */
     public void undo() {
         if (!model.canUndo()) {
             view.displayNotif("Undo not allowed (either already undone, limit reached, or no saved state)");
@@ -59,7 +70,11 @@ public class BoardController {
         view.updateBoard(model);
     }
 
-    /** Handles when a pit button is clicked. */
+    /**
+     * Handles when a pit button is clicked
+     * 
+     * @param pitIndex - The index of the pit that was clicked
+     */
     private void handlePitClick(int pitIndex) {
         if (!model.isValidPit(pitIndex)) {
             view.displayNotif("Invalid pit selected!");

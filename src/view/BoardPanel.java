@@ -1,3 +1,8 @@
+/**
+ * @author Aidan Zheng, Kwonjae Lee, Jacob Thomas 
+ * @version 1.0
+ */
+
 package view;
 
 import javax.swing.*;
@@ -7,15 +12,13 @@ import model.BoardModel;
 /**
  * BoardPanel is responsible for drawing the Mancala game layout
  * It represents the pits and Mancala
- * 
- * Author: Aidan Zheng, Kwonjae Lee, Jacob Thomas 
  */
 public class BoardPanel extends JPanel {
 
     private PitButton[] pitButtons = new PitButton[14];
 
-    /** 
-     * Constructs the Mancala game board with 14 pits 
+    /**
+     * Constructs the Mancala game board with 14 pits
      * (0–5, 6 = A Mancala, 7–12, 13 = B Mancala)
      */
     public BoardPanel() {
@@ -25,8 +28,8 @@ public class BoardPanel extends JPanel {
 
         // Player B pits (top row: 12 → 7)
         for (int i = 12, col = 1; i >= 7; i--, col++) {
-            pitButtons[i] = new PitButton(i);   
-            pitButtons[i].setPreferredSize(new Dimension(80,100));
+            pitButtons[i] = new PitButton(i);
+            pitButtons[i].setPreferredSize(new Dimension(80, 100));
             gc.gridx = col;
             gc.gridy = 0;
             add(pitButtons[i], gc);
@@ -34,7 +37,7 @@ public class BoardPanel extends JPanel {
 
         // Mancala for player A (left side, index 6)
         pitButtons[6] = new PitButton(6);
-        pitButtons[6].setPreferredSize(new Dimension(120,160));
+        pitButtons[6].setPreferredSize(new Dimension(120, 160));
         gc.gridx = 7;
         gc.gridy = 0;
         gc.gridheight = 2;
@@ -44,7 +47,7 @@ public class BoardPanel extends JPanel {
         // Player A pits (bottom row: 0 → 5)
         for (int i = 0, col = 1; i <= 5; i++, col++) {
             pitButtons[i] = new PitButton(i);
-            pitButtons[i].setPreferredSize(new Dimension(80,120));
+            pitButtons[i].setPreferredSize(new Dimension(80, 120));
             gc.gridx = col;
             gc.gridy = 1;
             add(pitButtons[i], gc);
@@ -52,36 +55,40 @@ public class BoardPanel extends JPanel {
 
         // Mancala for player B (right side, index 13)
         pitButtons[13] = new PitButton(13);
-        pitButtons[13].setPreferredSize(new Dimension(120,160));
+        pitButtons[13].setPreferredSize(new Dimension(120, 160));
         gc.gridx = 0;
         gc.gridy = 0;
         gc.gridheight = 2;
         add(pitButtons[13], gc);
     }
 
-    /** 
-     * Paints a title on the panel.
+    /**
+     * Paints a title on the panel
      */
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawString("Mancala Game Board", 50, 25);
     }
 
-    /** 
-     * Updates all pit buttons with the current number of stones from the model.
+    /**
+     * Updates all pit buttons with the current number of stones from the model
+     * 
+     * @param model - model object to be updated
      */
     public void updateBoard(BoardModel model) {
         int[] pits = model.getBoard();
 
         for (int i = 0; i < 14; i++) {
-            if(pitButtons[i].getStoneCount() != pits[i]){
+            if (pitButtons[i].getStoneCount() != pits[i]) {
                 pitButtons[i].updateStones(pits[i]);
             }
         }
     }
 
-    /** 
-     * Gives access to the array of pit buttons (for controller use)
+    /**
+     * Getter for array of pit buttons for use by controller
+     * 
+     * @return - array of pit buttons
      */
     public PitButton[] getPitButtons() {
         return pitButtons;

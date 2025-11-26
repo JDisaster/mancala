@@ -1,16 +1,19 @@
+/**
+ * @author Aidan Zheng
+ * @version 1.0
+ */
+
 package model;
 
 /**
- * The player class is used to keep track of player info such as their name, undo count, and which players turn it is
- * 
- * Author: Aidan Zheng
+ * The player class is used to keep track of player info such as their name,
+ * undo count, and which players turn it is
  */
 public class Player {
-    private String name;
-    private boolean isPlayerA;
-    private int undoCount;
-    private boolean undoLastMove;
-
+    private String name; // name of the player
+    private boolean isPlayerA; // whether or not this is player A
+    private int undoCount; // amount of undo actions taken
+    private boolean undoLastMove; // whether or not undo was the last move executed
 
     // Constructor for players
     public Player(String name, boolean isPlayerA) {
@@ -20,7 +23,9 @@ public class Player {
     }
 
     /**
-     * Method used to get player name
+     * Getter for player name
+     * 
+     * @return - the name of the player
      */
     public String getName() {
         return name;
@@ -28,6 +33,8 @@ public class Player {
 
     /**
      * Method used to check which player turn it is
+     * 
+     * @return - whether or not this is player A
      */
     public boolean isPlayerA() {
         return isPlayerA;
@@ -35,20 +42,22 @@ public class Player {
 
     /**
      * Check how many undos a player used
+     * 
+     * @return - the amount of undo actions executed
      */
     public int getUndoCount() {
         return undoCount;
     }
 
     /**
-     * Increment the undo count when player undos move
+     * Increments the undo count, used when a player executes an undo
      */
     public void incUndoCount() {
         undoCount++;
     }
 
     /**
-     * Reset the undo count when new player turn
+     * Reset the undo count when a new turn is reached
      */
     public void resetUndo() {
         undoCount = 0;
@@ -62,7 +71,7 @@ public class Player {
     public boolean getUndoLastMove() {
         return undoLastMove;
     }
-    
+
     /**
      * Setter for the state of undo last move
      * 

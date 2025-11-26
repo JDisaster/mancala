@@ -1,15 +1,20 @@
+/**
+ * @author Aidan Zheng, Kwonjae Lee, Jacob Thomas
+ * @version 1.0
+ */
+
 package model;
 
 /**
  * MancalaModel represents the main data structure of the Mancala game.
- * It contains all the core game state and logic 
- * Responsible for working the undo funciton, pit ownership, stone distrubution, checks if game is over
- * 
- * Author: Aidan Zheng, Kwonjae Lee, Jacob Thomas
+ * It contains all the core game state and logic.
+ * Responsible for working the undo function, pit ownership, stone distrubution,
+ * and checking if game is over
  */
+
 public class BoardModel {
 
-    private int[] pits; // 14 pits: 0-5 (Player A), 6 (A Mancala), 7-12 (Player B), 13 (B Mancala)
+    private int[] pits; // 14 pits: 0-5 (Player A), 6 (Mancala A), 7-12 (Player B), 13 (Mancala B)
     private int[] previousBoard; // This array will be used to go back to the previous board when undo
     private Player currentPlayer; // 0 = Player A, 1 = Player B
     private Player playerA;
@@ -17,7 +22,12 @@ public class BoardModel {
     private boolean gameOver; // Flag to indicate if the game has ended
     private Player lastPlayer;
 
-    /** Constructor: creates a new Mancala board with each player identified. */
+    /**
+     * Constructor: creates a new Mancala board with each player identified
+     * 
+     * @param nameA - Name of the first player
+     * @param nameb - Name of the second player
+     */
     public BoardModel(String nameA, String nameb) {
         pits = new int[14];
         playerA = new Player(nameA, true);
@@ -28,7 +38,9 @@ public class BoardModel {
 
     /**
      * Initializes the board with a given number of stones per pit.
-     * Mancala pits (index 6 and 13) are set to 0.
+     * Mancala pits (index 6 and 13) are set to 0
+     * 
+     * @param stonesPerPit - the number of initial stones per pit
      */
     public void initializeBoard(int stonesPerPit) {
         for (int i = 0; i < pits.length; i++) {
@@ -43,28 +55,19 @@ public class BoardModel {
         currentPlayer.setUndoLastMove(false);
     }
 
-    /** Prints the current board layout for testing. */
-    public void printBoard() {
-        System.out.println("    " + pits[12] + " " + pits[11] + " " + pits[10] + " " +
-                pits[9] + " " + pits[8] + " " + pits[7]);
-        System.out.println(pits[13] + "                   " + pits[6]);
-        System.out.println("    " + pits[0] + " " + pits[1] + " " + pits[2] + " " +
-                pits[3] + " " + pits[4] + " " + pits[5]);
-    }
-
     /**
-     * Get the current player
+     * Getter for current player
      * 
-     * @return the current player
+     * @return - the current player
      */
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
 
     /**
-     * Get the boards state
+     * Getter for the board
      * 
-     * @return the clone of the board to no accidental modifications
+     * @return - a clone of the board (to avoid direct modification)
      */
     public int[] getBoard() {
         return pits.clone();
@@ -91,8 +94,8 @@ public class BoardModel {
     /**
      * Checks if the selected pit belongs to the current current players side
      * 
-     * @param pitIndex used to check which pit is clicked by player
-     * @return true if it is a valid pit and false if otherwise
+     * @param pitIndex - index of the selected pit
+     * @return - true if pit is valid, false if otherwise
      */
     public boolean isValidPit(int pitIndex) {
         if (pitIndex == 6 || pitIndex == 13) {
@@ -110,9 +113,8 @@ public class BoardModel {
     /**
      * Returns the index of the opposite pit so player can capture
      * 
-     * @param pitIndex use to get the index picked
-     * @return the opposite pit index or -1 for invalid pit such as the Mancala of
-     *         each player
+     * @param pitIndex - index of the selected pit
+     * @return - the opposite pit index or -1 for invalid pit (if pit is Mancala)
      */
     public int getOppositePit(int pitIndex) {
         if (pitIndex >= 0 && pitIndex <= 5) {
@@ -124,10 +126,11 @@ public class BoardModel {
     }
 
     /**
-     * Makes a move based on the selected pit and checks if games over, invalid
-     * selection, captures, or to switch players or not
+     * Makes a move based on the selected pit and checks if the game is over, there
+     * is an invalid selection, a pit is captured, or if the current player
+     * must be switched
      * 
-     * @param pitIndex used to start at specified pit
+     * @param pitIndex - index of the selected pit
      */
     public void makeMove(int pitIndex) {
         // Ignore empty or invalid pits
@@ -138,12 +141,11 @@ public class BoardModel {
             return;
         }
         // Undo functionality
-        if(getCurrentPlayer().getUndoCount()<3){
+        if (getCurrentPlayer().getUndoCount() < 3) {
             saveState();
             lastPlayer = currentPlayer;
             currentPlayer.setUndoLastMove(false);
         }
-
 
         // Grab all stones in selected pit
         int stones = pits[pitIndex];
@@ -164,7 +166,7 @@ public class BoardModel {
             stones--;
         }
 
-        // If playerA lands in empty pit of their own, capture enemies pit
+        // If player A lands in empty pit of their own, capture enemies pit
         if (currentPlayer == playerA && pitIndex >= 0 && pitIndex <= 5 && pits[pitIndex] == 1) {
             int opposite = getOppositePit(pitIndex);
             if (pits[opposite] > 0) {
@@ -173,7 +175,7 @@ public class BoardModel {
                 pits[pitIndex] = 0;
             }
         }
-        // If playerB lands in empty pit of their own, capture enemies pit
+        // If player B lands in empty pit of their own, capture enemies pit
         else if (currentPlayer == playerB && pitIndex >= 7 && pitIndex <= 12 && pits[pitIndex] == 1) {
             int opposite = getOppositePit(pitIndex);
             if (pits[opposite] > 0) {
@@ -182,12 +184,13 @@ public class BoardModel {
                 pits[pitIndex] = 0;
             }
         }
-        // Switch players if last stone doesn't land in current players mancala
+        // Switch players if last stone doesn't land in current players Mancala
         if ((currentPlayer == playerA && pitIndex != 6) || (currentPlayer == playerB && pitIndex != 13)) {
             switchTurn();
             currentPlayer.resetUndo();
         }
-        // If one side of board is empty, move remaining stones in to their mancala sides
+        // If one side of board is empty, move remaining stones in to their Mancala
+        // sides
         if (isGameOver()) {
             int sumA = 0;
             int sumB = 0;
@@ -209,7 +212,7 @@ public class BoardModel {
     /**
      * Check if the game is over based on if a side is empty
      * 
-     * @return true or false as a checker
+     * @return - true or false as a checker
      */
     public boolean isGameOver() {
         boolean sideAEmpty = true;
@@ -226,8 +229,6 @@ public class BoardModel {
         gameOver = sideAEmpty || sideBEmpty;
         return gameOver;
     }
-
-
 
     /**
      * Getter for previous board
@@ -247,18 +248,27 @@ public class BoardModel {
         pits = newBoard;
     }
 
-    // BoardModel.java
+    /**
+     * Internal undo method used by the controller
+     */
     public void undo() {
-        if (!canUndo()) return; 
+        if (!canUndo())
+            return;
         pits = previousBoard.clone();
-        currentPlayer = lastPlayer;                  
-        currentPlayer.setUndoLastMove(true);     
-        currentPlayer.incUndoCount(); 
+        currentPlayer = lastPlayer;
+        currentPlayer.setUndoLastMove(true);
+        currentPlayer.incUndoCount();
 
         previousBoard = null;
     }
-    public boolean canUndo() {
-        return previousBoard != null && lastPlayer != null && !lastPlayer.getUndoLastMove() && lastPlayer.getUndoCount() < 3;
-    }
 
+    /**
+     * Checks if an internal undo is possible
+     * 
+     * @return - true if possible, false if not
+     */
+    public boolean canUndo() {
+        return previousBoard != null && lastPlayer != null && !lastPlayer.getUndoLastMove()
+                && lastPlayer.getUndoCount() < 3;
+    }
 }

@@ -1,3 +1,8 @@
+/**
+ * @author Aidan Zheng, Kwonjae Lee, Jacob Thomas 
+ * @version 1.0
+ */
+
 package view;
 
 import javax.swing.*;
@@ -7,10 +12,8 @@ import style.*;
 
 /**
  * Primary GUI components for the Mancala application
- * Configues stone count, style selection, and notification dialogs
+ * Configures stone count, style selection, and notification dialogs
  * Has some controller aspects but no logic
- * 
- * Author: Aidan Zheng, Kwonjae Lee, Jacob Thomas
  */
 
 public class BoardView extends JFrame {
@@ -19,7 +22,7 @@ public class BoardView extends JFrame {
     private JLabel turnLabel;
     private BoardStyle style = new Default();
 
-    /** 
+    /**
      * Constructs a new view for the program
      */
     public BoardView() {
@@ -28,8 +31,10 @@ public class BoardView extends JFrame {
         turnLabel = new JLabel("Current Turn: Player A");
     }
 
-    /** 
-     * Updates the visual board with the current state from the model and whose turn it is
+    /**
+     * Updates the visual board with the current state of the model
+     * 
+     * @param model - model object to update the view with
      */
     public void updateBoard(BoardModel model) {
         boardPanel.updateBoard(model);
@@ -40,7 +45,7 @@ public class BoardView extends JFrame {
         int scoreB = pits[13];
 
         turnLabel.setText("Current Turn: " + currentPlayerName
-            + " | Score: A = " + scoreA + " | B = " + scoreB);
+                + " | Score: A = " + scoreA + " | B = " + scoreB);
 
         if (currentPlayerName.equals("Player A"))
             turnLabel.setForeground(Color.BLUE);
@@ -79,11 +84,12 @@ public class BoardView extends JFrame {
 
     /**
      * Displays the stone count that the players want to start with
-     * @return an array of stones
+     * 
+     * @return - the amount of stones to load into each pit
      */
-    public int displayStoneCount(){
+    public int displayStoneCount() {
 
-        final int[] result = {-1};
+        final int[] result = { -1 };
         JDialog selectDialog = new JDialog((Frame) null, "Select Stones per Pit", true);
         selectDialog.setLayout(new FlowLayout());
         selectDialog.setSize(300, 120);
@@ -107,9 +113,9 @@ public class BoardView extends JFrame {
         cancelBtn.addActionListener(e -> {
             int confirm = JOptionPane.showConfirmDialog(
                     null, "Exit game?", "Confirm Exit", JOptionPane.YES_NO_OPTION);
-            if (confirm == JOptionPane.YES_OPTION) System.exit(0);
+            if (confirm == JOptionPane.YES_OPTION)
+                System.exit(0);
         });
-
 
         selectDialog.add(label);
         selectDialog.add(threeBtn);
@@ -120,7 +126,7 @@ public class BoardView extends JFrame {
         return result[0];
     }
 
-    /** 
+    /**
      * Displays a popup notification message
      */
     public void displayNotif(String message) {
@@ -128,40 +134,45 @@ public class BoardView extends JFrame {
     }
 
     /**
-     * Get the pitbuttons in the boardPanel
-     * @return the pitbuttons
+     * Getter for pit buttons
+     * 
+     * @return - array of PitButton objects
      */
     public PitButton[] getPitButtons() {
         return boardPanel.getPitButtons();
     }
 
     /**
-     * Get the board panel
-     * @return the board panel
+     * Getter for the board panel
+     * 
+     * @return - the board panel
      */
     public BoardPanel getBoardPanel() {
         return boardPanel;
     }
 
     /**
-     * Get the undo button
-     * @return the undoButton
+     * Getter for undo button
+     * 
+     * @return - the undo button
      */
     public JButton getUndoButton() {
         return undoButton;
     }
 
     /**
-     * Get the turn label at header
-     * @return the turnLabel
+     * Getter for turn label header
+     * 
+     * @return - the turn label
      */
     public JLabel getTurnLabel() {
         return turnLabel;
     }
 
     /**
-     * Changes the style of the board
-     * @param newStyle is style to use
+     * Setter for the style of the board
+     * 
+     * @param newStyle - style of the board to use
      */
     public void setStyle(BoardStyle newStyle) {
         style = newStyle;
